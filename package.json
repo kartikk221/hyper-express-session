@@ -1,6 +1,6 @@
 {
     "name": "hyper-express-session",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "High performance middleware that implements cookie based web sessions into the HyperExpress webserver.",
     "main": "index.js",
     "scripts": {
