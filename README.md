@@ -1,5 +1,5 @@
 # HyperExpress.Session: High Performance Cookie Sessions Middleware
-#### Built for [`HyperExpress`](https://github.com/kartikk221/hyper-express-session)
+#### Built for [`HyperExpress`](https://github.com/kartikk221/hyper-express)
 
 <div align="left">
 
