@@ -41,7 +41,7 @@ TestEngine.on('destroy', async (session) => {
 });
 
 // Use middleware from TestEngine in a HyperExpress webserver instance
-webserver.use(TestEngine.middleware);
+webserver.use(TestEngine);
 ```
 
 #### Example: Initiating and storing visits in a session
