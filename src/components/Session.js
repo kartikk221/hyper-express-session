@@ -310,11 +310,11 @@ class Session {
         try {
             // Execute 'touch' operation if automatic_touch is enabled
             const automatic_touch = this.#session_engine.options.automatic_touch;
-            if (this.#from_database && automatic_touch === true) {
-                await this.touch();
-            } else if (this.#persist) {
+            if (this.#persist) {
                 // Execute 'write' operation to persist changes
                 await this.#session_engine.methods.write(this);
+            } else if (this.#from_database && automatic_touch === true) {
+                await this.touch();
             }
         } catch (error) {
             // Pipe error to the global error handler
