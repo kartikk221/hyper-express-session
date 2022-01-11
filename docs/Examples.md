@@ -4,7 +4,7 @@ Below are various examples and snippets that make use of `SessionEngine` and `Se
 #### Example: Initializing & Binding A Session Engine With Redis Store Implementation
 ```javascript
 const SessionEngine = require('hyper-express-session');
-const TestEngine = new session_engine({
+const TestEngine = new SessionEngine({
     duration: 1000 * 60 * 45, // Default duration is 45 Minutes
     cookie: {
         name: 'example_sess',
@@ -36,7 +36,7 @@ TestEngine.use('write', async (session) => {
     .exec();
 });
 
-TestEngine.on('destroy', async (session) => {
+TestEngine.use('destroy', async (session) => {
     return await redis.del('session:' + session.id);
 });
 
