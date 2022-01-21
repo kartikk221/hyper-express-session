@@ -1,8 +1,9 @@
 {
     "name": "hyper-express-session",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "description": "High performance middleware that implements cookie based web sessions into the HyperExpress webserver.",
     "main": "index.js",
+    "types": "./types/index.d.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -28,6 +29,10 @@
     },
     "homepage": "https://github.com/kartikk221/hyper-express-session#readme",
     "dependencies": {
+        "@types/node": "^16.11.6",
         "uid-safe": "^2.1.5"
+    },
+    "devDependencies": {
+        "typescript": "^4.4.4"
     }
 }
