@@ -30,7 +30,7 @@ class Session {
     /**
      * This method asynchronously generates a strong cryptographically random session id.
      *
-     * @returns {Promise} Promise -> String
+     * @returns {Promise<string>}
      */
     async generate_id() {
         return await this.#session_engine.methods.id();
@@ -57,7 +57,7 @@ class Session {
      * unsign the the provided id and thus verifies user input.
      *
      * @param {String} signed_id Signed Session ID
-     * @param {String} secret Optional (Utilizes SessionEngine.options.cookie.secret by default)
+     * @param {String=} secret Optional (Utilizes SessionEngine.options.cookie.secret by default)
      * @returns {Boolean}
      */
     set_signed_id(signed_id, secret) {
@@ -96,7 +96,7 @@ class Session {
      * This method is used to start a session for incoming request.
      * Note! This method is asynchronous as it performs the 'read' operation to read session data.
      *
-     * @returns {Promise} Promise
+     * @returns {Promise}
      */
     async start() {
         // Return if session has already started
@@ -143,7 +143,7 @@ class Session {
      * Note! This operation performs 2 underlying operations as it first
      * deletes old session and then persists session data under new session id.
      *
-     * @returns {Promise} Promise -> Boolean (true || false)
+     * @returns {Promise<Boolean>}
      */
     async roll() {
         // Throw not started error if session was not started/ready
@@ -165,7 +165,7 @@ class Session {
     /**
      * This method performs the 'touch' operation updating session's expiry in storage.
      *
-     * @returns {Promise} Promise
+     * @returns {Promise}
      */
     touch() {
         // Return if no session cookie was sent with request
@@ -371,6 +371,7 @@ class Session {
 
     /**
      * Returns whether session is ready and its data has been retrieved.
+     * @returns {Boolean}
      */
     get ready() {
         return this.#ready;
@@ -379,6 +380,7 @@ class Session {
     /**
      * Returns whether session has already been stored in database or not.
      * This is helpful for choosing between INSERT/UPDATE operations for SQL based implementations.
+     * @returns {Boolean}
      */
     get stored() {
         return this.#from_database;
@@ -386,6 +388,7 @@ class Session {
 
     /**
      * Returns the current session's lifetime duration in milliseconds.
+     * @returns {Number}
      */
     get duration() {
         const default_duration = this.#session_engine.options.duration;
@@ -394,7 +397,8 @@ class Session {
     }
 
     /**
-     * Returns the expiry unix timestamp in milliseconds of current session.
+     * Returns the expiry UNIX timestamp in milliseconds of current session.
+     * @returns {Number}
      */
     get expires_at() {
         return Date.now() + this.duration;

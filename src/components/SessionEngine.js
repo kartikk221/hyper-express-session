@@ -40,9 +40,7 @@ class SessionEngine {
         // Ensure the session duration is a valid number
         const duration = this.#options.duration;
         if (typeof duration !== 'number' || duration < 1)
-            throw new Error(
-                'new SessionEngine(options.duration) -> duration must be a valid number in milliseconds.'
-            );
+            throw new Error('new SessionEngine(options.duration) -> duration must be a valid number in milliseconds.');
 
         // Ensure user has specified a secret as it is required
         const secret = this.#options.cookie.secret;
@@ -86,14 +84,12 @@ class SessionEngine {
      *
      * @param {String} type [id, touch, read, write, destroy]
      * @param {function(Session):void} handler
-     * @returns {SessionEngine}
+     * @returns {SessionEngine} SessionEngine (Chainable)
      */
     use(type, handler) {
         // Ensure type is valid string that is supported
         if (typeof type !== 'string' || this.#methods[type] == undefined)
-            throw new Error(
-                'SessionEngine.use(type, handler) -> type must be a string that is a supported operation.'
-            );
+            throw new Error('SessionEngine.use(type, handler) -> type must be a string that is a supported operation.');
 
         // Ensure handler is an executable function
         if (typeof handler !== 'function')
@@ -105,7 +101,7 @@ class SessionEngine {
     }
 
     /**
-     * Triggers 'cleanup' operation.
+     * Triggers 'cleanup' operation based on the assigned "cleanup" handler.
      */
     cleanup() {
         return this.#methods.cleanup();
@@ -121,7 +117,7 @@ class SessionEngine {
     }
 
     /**
-     * SessionEngine operation methods.
+     * SessionEngine assigned operation method handlers.
      */
     get methods() {
         return this.#methods;
@@ -129,6 +125,7 @@ class SessionEngine {
 
     /**
      * SessionEngine middleware function to be passed into HyperExpress.use() method.
+     * @returns {Function}
      */
     get middleware() {
         return this.#middleware;
