@@ -40,4 +40,9 @@ export interface SessionEngineOptions {
      * Specifies whether all sessions should automatically be touched regardless of any changes.
      */
     automatic_touch?: boolean;
+
+    /**
+     * Session cookie options
+     */
+    cookie: SessionEngineCookieOptions;
 }
