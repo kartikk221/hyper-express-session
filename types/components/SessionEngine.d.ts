@@ -1,4 +1,5 @@
 import Session from './Session';
+import { SessionEngineOptions } from './SessionEngineOptions';
 
 type EngineHandler = (session: Session) => void | Promise<void>;
 
@@ -7,6 +8,13 @@ interface EngineMethods {
 }
 
 export default class SessionEngine {
+
+    /**
+     * 
+     * @param options SessionEngine Options
+     */
+    constructor(options: SessionEngineOptions);
+
     /* SessionEngine Methods */
 
     /**
@@ -27,9 +35,9 @@ export default class SessionEngine {
 
     /**
      * SessionEngine constructor options.
-     * @returns {Object}
+     * @returns {SessionEngineOptions}
      */
-    get options(): object;
+    get options(): SessionEngineOptions;
 
     /**
      * SessionEngine assigned operation method handlers.
