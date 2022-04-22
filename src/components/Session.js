@@ -318,7 +318,7 @@ class Session {
             }
         } catch (error) {
             // Pipe error to the global error handler
-            this.#response.throw_error(error);
+            this.#response.throw(error);
         }
     }
 
