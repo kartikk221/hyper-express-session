@@ -23,8 +23,8 @@ class Session {
         this.#response = response;
         this.#session_engine = session_engine;
 
-        // Bind a hook on 'send' event for performing closure at the end of request
-        response.hook('send', () => this._perform_closure());
+        // Bind a hook on 'prepare' event for performing closure at the end of request
+        response.on('prepare', () => this._perform_closure());
     }
 
     /**
@@ -295,7 +295,7 @@ class Session {
         const cookie = this.#session_engine.options.cookie;
         if (this.#destroyed) {
             // Delete session cookie as session was destroyed
-            this.#response.delete_cookie(cookie.name);
+            this.#response.cookie(cookie.name, null);
         } else if (typeof this.#signed_id == 'string') {
             // Write session cookie without signing to save on CPU operations
             this.#response.cookie(cookie.name, this.#signed_id, this.duration, cookie, false);
