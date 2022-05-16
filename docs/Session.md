@@ -36,14 +36,14 @@ Methods that return `Session` are chainable to allow for cleaner code.
 * `destroy()`: Destroys current session from storage and set's cookie header to delete session cookie.
     * **Returns** `Promise`
 * `set(String: name, Any: value)`: Sets session data value. You set multiple values by passing an `Object` parameter.
-    * **Returns** `Promise`
+    * **Returns** `Session`
     * **Single Example:** `session.set('id', 'some_id')`
     * **Multiple Example:** `session.set({ id: 'some_id', email: 'some_email' })`
 * `reset(Object: data)`: Replaces existing session data values with values from the provided `data` object.
-    * **Returns** `Promise`
+    * **Returns** `Session`
 * `get(String: name)`: Returns session data value for specified name. You may **omit** `name` to get **all** session data values.
     * **Returns** `Any`, `Object`, `undefined`
     * **Get One Example**: `session.get('email');` will return the session data value for `email` or `undefined` if it is not set.
     * **Get All Example**: `session.get()` will return all session data values in an `Object`.
 * `delete(String: name)`: Deletes session data value at specified name. You may **omit** `name` to delete **all** session data values.
-    * **Returns** `Promise`
+    * **Returns** `Session`
