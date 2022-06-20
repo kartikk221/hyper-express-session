@@ -1,6 +1,17 @@
-interface SessionData {
-    [key: string]: any;
-}
+/**
+ * This interface allows you to declare additional properties on your session object using [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html).
+ *
+ * @example
+ * import 'hyper-express-session/types/components/Session';
+ * 
+ * declare module 'hyper-express-session/types/components/Session' {
+ *     interface SessionData {
+ *         views: number;
+ *     }
+ * }
+ *
+ */
+export interface SessionData {};
 
 export default class Session {
     /* Session Methods */
@@ -78,13 +89,9 @@ export default class Session {
      * This method is used to set one or multiple session data values.
      * You may provide a name and value argument to update a single value.
      * You may provide an Object of keys/values to update multiple values in one operation.
-     *
-     * @param {String} name
-     * @param {Any} value
-     * @returns {Session} Session (Chainable)
      */
-    set(name: string, value: any): Session;
-    set(values: SessionData): Session;
+    set<T extends keyof SessionData>(name: T, value: SessionData[T]): Session;
+    set(sessionData: SessionData): Session;
 
     /**
      * This method replaces current session data values with provided data values object.
@@ -101,7 +108,7 @@ export default class Session {
      * @param {String=} name Optional
      * @returns {Any|Object|undefined}
      */
-    get(name: string): any | void;
+    get<T extends keyof SessionData>(name: T): SessionData[T];
     get(): SessionData;
 
     /**
