@@ -2,6 +2,12 @@ const Session = require('./Session.js');
 const UidSafe = require('uid-safe');
 const { wrap_object } = require('../shared/operators.js');
 
+/**
+ * @typedef {Record<string, any>} SessionData
+ * @typedef {function(Session):void|Promise<void>} EngineActionHandler
+ * @typedef {function(Session):SessionData|Promise<SessionData>} EngineReactionHandler
+ */
+
 class SessionEngine {
     #middleware;
     #options = {
@@ -82,8 +88,8 @@ class SessionEngine {
     /**
      * This method is used to specify a handler for session engine operations.
      *
-     * @param {String} type [id, touch, read, write, destroy]
-     * @param {function(Session):void} handler
+     * @param {('id'|'touch'|'read'|'write'|'destroy'|'cleanup')} type [id, touch, read, write, destroy]
+     * @param {EngineActionHandler|EngineReactionHandler} handler
      * @returns {SessionEngine} SessionEngine (Chainable)
      */
     use(type, handler) {

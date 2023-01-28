@@ -1,11 +1,12 @@
-import SessionEngine from "./components/SessionEngine";
+import SessionEngine from './components/SessionEngine';
 export default SessionEngine;
 
 import Session from 'hyper-express-session/types/components/Session';
+export { SessionEngine, Session };
 
 declare module 'hyper-express' {
     interface Request {
-        session: Session
+        session: Session;
     }
 
     interface Router {

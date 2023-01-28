@@ -1,16 +1,22 @@
 import Session from './Session';
+import { SessionData } from './Session';
 import { SessionEngineOptions } from './SessionEngineOptions';
 
-type EngineHandler = (session: Session) => void | Promise<void>;
+type EngineActionHandler = (session: Session) => void | Promise<void>;
+type EngineReactionHandler = (session: Session) => SessionData | Promise<SessionData>;
 
 interface EngineMethods {
-    [name: string]: Function
+    read?: EngineReactionHandler;
+    touch?: EngineActionHandler;
+    write?: EngineActionHandler;
+    destroy?: EngineActionHandler;
+    id?: () => string;
+    cleanup?: () => void;
 }
 
 export default class SessionEngine {
-
     /**
-     * 
+     *
      * @param options SessionEngine Options
      */
     constructor(options: SessionEngineOptions);
@@ -19,12 +25,11 @@ export default class SessionEngine {
 
     /**
      * This method is used to specify a handler for session engine operations.
-     *
-     * @param {String} type [id, touch, read, write, destroy]
-     * @param {EngineHandler} handler
-     * @returns {SessionEngine} SessionEngine (Chainable)
      */
-    use(type: string, handler: EngineHandler): SessionEngine;
+    use(type: 'touch' | 'write' | 'destroy', handler: EngineActionHandler): SessionEngine;
+    use(type: 'read', handler: EngineReactionHandler): SessionEngine;
+    use(type: 'id', handler: () => string): SessionEngine;
+    use(type: 'cleanup', handler: () => void): SessionEngine;
 
     /**
      * Triggers 'cleanup' operation based on the assigned "cleanup" handler.
@@ -41,7 +46,6 @@ export default class SessionEngine {
 
     /**
      * SessionEngine assigned operation method handlers.
-     * @returns {EngineMethods}
      */
     get methods(): EngineMethods;
 
