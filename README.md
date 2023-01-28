@@ -19,7 +19,6 @@ HyperExpress.Session aims to provide a simple middleware that implements a sessi
 HyperExpress and HyperExpressWS can both be installed using node package manager (`npm`)
 ```
 npm i hyper-express-session
-npm i hyper-express-session-session
 ```
 
 ## Documentation
