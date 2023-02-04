@@ -24,7 +24,11 @@ class Session {
         this.#session_engine = session_engine;
 
         // Bind a hook on 'prepare' event for performing closure at the end of request
-        response.on('prepare', () => this._perform_closure());
+        response.on('prepare', () => {
+            // Ensure the session was started / ready to then perform closure
+            // This is because we do not want to perform closure on a session that was not started for various reasons (e.g. no session cookie sent with request) or (e.g. custom session duration not loaded from database)
+            if (this.#ready) this._perform_closure();
+        });
     }
 
     /**
